@@ -1,0 +1,25 @@
+name: Kompiluj i wdrażaj
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Sprawdź kod
+        uses: actions/checkout@v2
+
+      - name: Zainstaluj Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Zainicjuj Terraform
+        run: terraform init
+
+      - name: Zaaplikuj Terraform
+        run: terraform apply -auto-approve
+
+      - name: Wystartuj skrypt
+        run: python hello.py
